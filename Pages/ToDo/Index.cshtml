@@ -9,7 +9,7 @@
 <form method="post" class="mb-3">
     <div class="input-group">
        <input asp-for="NewItem.Title" class="form-control" placeholder="Nouvelle tâche..." />
-        <pre>@Html.NameFor(m => m.NewItem.Title)</pre>
+        
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </div>
     <span asp-validation-for="NewItem.Title" class="text-danger"></span>
