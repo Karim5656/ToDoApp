@@ -1,0 +1,39 @@
+@page
+@model ToDoApp.Pages.ToDo.IndexModel
+@{
+    ViewData["Title"] = "Ma ToDo List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" class="mb-3">
+    <div class="input-group">
+       <input asp-for="NewItem.Title" class="form-control" placeholder="Nouvelle tâche..." />
+        <pre>@Html.NameFor(m => m.NewItem.Title)</pre>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+    <span asp-validation-for="NewItem.Title" class="text-danger"></span>
+</form>
+
+<ul class="list-group">
+    @foreach (var item in Model.UserItems)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="@(item.IsCompleted ? "text-decoration-line-through text-muted" : "")">
+                @item.Title
+            </span>
+            <div>
+                <form method="post" asp-page-handler="Toggle" asp-route-id="@item.Id" class="d-inline">
+                    <button class="btn btn-sm btn-outline-success" title="Terminer/Reprendre">✓</button>
+                </form>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" class="d-inline">
+                    <button class="btn btn-sm btn-outline-danger" title="Supprimer">🗑️</button>
+                </form>
+            </div>
+        </li>
+    }
+</ul>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
